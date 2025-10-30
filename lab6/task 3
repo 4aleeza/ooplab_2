@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Message {
+    string text;
+public:
+    void setText(string t) { text = t; }
+    string getText() const { return text; }
+    virtual string toString() const { return text; }
+};
+
+class SMS : public Message {
+    string recipientContactNo;
+public:
+    void setRecipient(string r) { recipientContactNo = r; }
+    string getRecipient() const { return recipientContactNo; }
+    string toString() const override {
+        return "To: " + recipientContactNo + ", Message: " + getText();
+    }
+};
+
+class Email : public Message {
+    string sender, receiver, subject;
+public:
+    void setSender(string s) { sender = s; }
+    void setReceiver(string r) { receiver = r; }
+    void setSubject(string s) { subject = s; }
+    string getSender() const { return sender; }
+    string getReceiver() const { return receiver; }
+    string getSubject() const { return subject; }
+    string toString() const override {
+        return "From: " + sender + ", To: " + receiver + ", Subject: " + subject + ", Message: " + getText();
+    }
+};
+
+bool ContainsKeyword(const Message& messageObject, const string& keyword) {
+    return messageObject.getText().find(keyword) != string::npos;
+}
+
+string encodeMessage(const string& msg) {
+    string encoded = msg;
+    for (char& c : encoded) {
+        if (isalpha(c)) {
+            if (c == 'z') c = 'a';
+            else if (c == 'Z') c = 'A';
+            else c++;
+        }
+    }
+    return encoded;
+}
+
+int main() {
+    SMS s;
+    s.setRecipient("03001234567");
+    s.setText("This is Java");
+    cout << s.toString() << endl;
+    cout << "Contains 'Java'? " << (ContainsKeyword(s, "Java") ? "Yes" : "No") << endl;
+    cout << "Encoded Message: " << encodeMessage(s.getText()) << endl;
+
+    cout << endl;
+    Email e;
+    e.setSender("alice@example.com");
+    e.setReceiver("bob@example.com");
+    e.setSubject("Project Update");
+    e.setText("This is Java project update");
+    cout << e.toString() << endl;
+    cout << "Contains 'update'? " << (ContainsKeyword(e, "update") ? "Yes" : "No") << endl;
+    cout << "Encoded Message: " << encodeMessage(e.getText()) << endl;
+    return 0;
+}
