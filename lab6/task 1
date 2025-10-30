@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+
+class WeatherStats {
+public:
+
+    static void calcavgtemp(int n) {
+        float temp = 0;
+        float avg = 0;
+        float* arr = new float[n];
+
+        for (int i = 0; i < n; i++) {
+            cout << "arr[" << i << "]: " << endl;
+            cin >> arr[i];
+        }
+
+        for (int i = 0; i < n; i++) {
+            temp = temp + arr[i];
+        }
+
+        avg = temp / n;
+        cout << "Average Temp: " << avg << endl;
+
+        WeatherStats obj1;
+        obj1.tempfluc(arr, n);
+
+        delete[] arr;
+    }
+
+    void tempfluc(float arr[], int n) {
+        float max = arr[0];
+        float min = arr[0];
+
+        // find max and min correctly
+        for (int i = 1; i < n; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+
+        float temp_fluctuation = max - min;
+        cout << "Fluctuation: " << temp_fluctuation << endl;
+    }
+};
+
+int main() {
+    int n;
+    cin >> n;
+    WeatherStats::calcavgtemp(n);
+}
