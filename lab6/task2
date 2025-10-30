@@ -1,3 +1,4 @@
+
 #include <iostream>
 using namespace std;
 
@@ -8,7 +9,6 @@ public:
     float price;
     Product() : name(""), price(0.0), category("") {}
     Product(string n, double p, string c) : name(n), price(p), category(c) {}
-    
     void display() const {
         cout << "Product Name: " << name << ", Price: " << price << " Category: " << category << endl;
     }
@@ -78,3 +78,24 @@ public:
         }
     }
 };
+
+int main() {
+    Company c("TechMart", 3);
+    c.addStore("ElectroShop", "Downtown");
+    c.addStore("GadgetWorld", "Mall Road");
+    Store s("ElectroShop", "Downtown", 5);
+    s.addProduct("Laptop", "Electronics", 150000);
+    s.addProduct("Smartphone", "Electronics", 80000);
+    s.addProduct("Headphones", "Accessories", 5000);
+    cout << "\n--- Displaying All Products ---\n";
+    s.display();
+    cout << "\n--- Searching for 'Laptop' ---\n";
+    s.SearchProduct("Laptop");
+    cout << "\n--- Deleting 'Smartphone' ---\n";
+    s.DeleteProduct("Smartphone");
+    cout << "\n--- Displaying All Products After Deletion ---\n";
+    s.display();
+    cout << "\nCompany Created Successfully!" << endl;
+    cout << "Stores added under company 'TechMart'." << endl;
+    return 0;
+}
