@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+
+class Product {
+public:
+    string name;
+    string category;
+    float price;
+    Product() : name(""), price(0.0), category("") {}
+    Product(string n, double p, string c) : name(n), price(p), category(c) {}
+    
+    void display() const {
+        cout << "Product Name: " << name << ", Price: " << price << " Category: " << category << endl;
+    }
+};
+
+class Store : public Product {
+    string name;
+    string location;
+    int pn;
+    int current;
+    Product *arr;
+public:
+    Store() : name(""), location(""), pn(0), current(0), arr(nullptr) {}
+    Store(string n, string l, int n1) : name(n), location(l), pn(n1), current(0) {
+        arr = new Product[n1];
+    }
+    void addProduct(string pname, string pc, float prc) {
+        if (current >= pn) {
+            cout << "Max Products Reached! Cannot Add More." << endl;
+        } else {
+            arr[current] = Product(pname, prc, pc);
+            current++;
+        }
+    }
+    void SearchProduct(string name) {
+        for (int i = 0; i < current; i++) {
+            if (arr[i].name == name) {
+                cout << "Product Found! Details:" << endl;
+                arr[i].display();
+            }
+        }
+    }
+    void DeleteProduct(string name) {
+        for (int i = 0; i < current; i++) {
+            if (arr[i].name == name) {
+                for (int j = i; j < current - 1; j++) {
+                    arr[j] = arr[j + 1];
+                }
+                current--;
+                cout << "Product Deleted" << endl;
+                break;
+            }
+        }
+    }
+    void display() {
+        for (int i = 0; i < current; i++) {
+            arr[i].display();
+        }
+    }
+};
+
+class Company : public Store {
+    string cname;
+    Store *s;
+    int ms;
+    int cur;
+public:
+    Company(string n, int m) : cname(n), ms(m), cur(0) {
+        s = new Store[ms];
+    }
+    void addStore(string n, string l) {
+        if (cur >= ms) {
+            cout << "Max Limit Reached!" << endl;
+        } else {
+            s[cur] = Store(n, l, 10);
+            cur++;
+        }
+    }
+};
