@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+
+class BankAccount {
+    float balance;
+public:
+    void setbal(float b){
+        balance = b;
+    }
+
+    float getbal(){
+        return balance;
+    }
+
+    virtual void calculateinterest() = 0; // pure virtual
+
+    void displaybalance(){
+        cout << "Balance: " << balance << endl;
+    }
+
+    void withdraw(float w){
+        if (w > balance){
+            cout << "Withdrawal failed! Not enough balance.\n";
+        }
+        else {
+            balance = balance - w;
+            cout << "Amount of " << w << " has been withdrawn from your Bank Account\n";
+        }
+    }
+
+    void deposit(float d){
+        if (d > 0) {
+            balance = balance + d;
+            cout << "Amount of " << d << " has been deposited into your Bank Account\n";
+        }
+    }
+};
+
+class SavingsAccount : public BankAccount {
+    float savings;
+    float savint;
+public: 
+    void setsavings(float sav){
+        savings = sav;
+    }
+
+    void calculateinterest(){
+        // Use YOUR variable 'savings'
+        savint = ((savings / 100) * 5) + savings;
+        cout << "The Calculated Interest For Your Savings Account is " << savint << endl;
+    }
+};
+
+
+class FixedDepositAccount : public BankAccount {
+    float depacc;
+    float intdep;
+    float mindep;
+public:
+
+    void setmindep(float md){
+        mindep = md;
+    }
+
+    void setdepacc(float dep){
+        depacc = dep;
+    }
+
+    void calculateinterest(){
+        if (depacc > mindep){
+            intdep = ((depacc / 100) * 7) + depacc;
+            cout << "The Calculated Interest For Your Deposit Account is " << intdep << endl;
+        }
+        else {
+            cout << "Minimum deposit not fulfilled. No interest.\n";
+        }
+    }
+};
