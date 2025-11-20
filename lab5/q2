@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+class MobileDevice {
+private:
+    string modelName;
+    const long long IMEINumber;
+public:
+    MobileDevice(string name, long long imei)
+        : modelName(name), IMEINumber(imei) {}
+
+    void verifyDevice() const {
+        cout << "Model Name: " << modelName << endl;
+        cout << "IMEI Number: " << IMEINumber << endl;
+    }
+};
+
+int main() {
+    MobileDevice d("Samsung A52", 354829104567890);
+    d.verifyDevice();
+    return 0;
+}
