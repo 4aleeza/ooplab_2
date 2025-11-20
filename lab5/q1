@@ -1,0 +1,40 @@
+*/Task 1:
+Design a C++ class named PetrolPump to manage fuel transactions. Implement a static data
+member called pricePerLiter (e.g., 270.50 PKR) to store the uniform rate for all transactions
+across all pump objects. Include non-static members for pumpID and litersFilled, and write a
+simple non-static member function, printReceipt(), that calculates and displays the total
+amount due using the shared static price.*/
+
+#include <iostream>
+using namespace std;
+
+class PetrolPump {
+private:
+    int pumpID;
+    double litersFilled;
+public:
+    static double pricePerLiter;
+
+    PetrolPump(int id, double liters) : pumpID(id), litersFilled(liters) {}
+
+    void printReceipt() {
+        double total = litersFilled * pricePerLiter;
+        cout << "Pump ID: " << pumpID << endl;
+        cout << "Liters Filled: " << litersFilled << endl;
+        cout << "Price per Liter: " << pricePerLiter << endl;
+        cout << "Total Amount: " << total << endl;
+    }
+};
+
+double PetrolPump::pricePerLiter = 270.50;
+
+int main() {
+    PetrolPump p1(101, 20.5);
+    PetrolPump p2(102, 15);
+
+    p1.printReceipt();
+    cout << endl;
+    p2.printReceipt();
+
+    return 0;
+}
