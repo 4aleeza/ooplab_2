@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Doctor {
+private:
+    string name;
+    string specialization;
+public:
+    Doctor(string n, string s) : name(n), specialization(s) {}
+    void showInfo() const {
+        cout << "Doctor: " << name << ", Specialization: " << specialization << endl;
+    }
+};
+
+class Hospital {
+private:
+    string hospitalName;
+    vector<Doctor*> doctors;
+public:
+    Hospital(string n) : hospitalName(n) {}
+
+    void addDoctor(Doctor* d) {
+        doctors.push_back(d);
+    }
+
+    void showDoctors() const {
+        cout << "Hospital: " << hospitalName << endl;
+        for (auto d : doctors) d->showInfo();
+    }
+};
+
+int main() {
+    Doctor d1("Dr. Ali", "Cardiologist");
+    Doctor d2("Dr. Sara", "Dermatologist");
+
+    Hospital h1("Lahore General Hospital");
+    Hospital h2("Services Hospital Lahore");
+
+    h1.addDoctor(&d1);
+    h1.addDoctor(&d2);
+
+    h1.showDoctors();
+    cout << endl;
+
+    h2.addDoctor(&d2);
+    h2.showDoctors();
+
+    return 0;
+}
