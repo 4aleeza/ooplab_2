@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+
+class CallRecord {
+private:
+    string callerID;
+    int durationMinutes;
+    static int totalCalls;
+public:
+    CallRecord(string id = "", int d = 0) : callerID(id), durationMinutes(d) {
+        if(id != "") totalCalls++;
+    }
+
+    static int getTotalCalls() {
+        return totalCalls;
+    }
+
+    void showRecord() const {
+        cout << "Caller ID: " << callerID 
+             << ", Duration: " << durationMinutes << " min" << endl;
+    }
+};
+
+int CallRecord::totalCalls = 0;
+
+int main() {
+    CallRecord calls[20] = {
+        CallRecord("03001234567", 5),
+        CallRecord("03019876543", 3),
+        CallRecord("03105551234", 10)
+    };
+
+    cout << "Total Calls Logged: " 
+         << CallRecord::getTotalCalls() << endl;
+
+    return 0;
+}
