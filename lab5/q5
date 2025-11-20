@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+
+class Kitchen {
+private:
+    int sizeInFeet;
+public:
+    Kitchen(int size = 50) : sizeInFeet(size) {}
+    void showKitchen() const {
+        cout << "Kitchen Size: " << sizeInFeet << " sq ft" << endl;
+    }
+};
+
+class Apartment {
+private:
+    const int apartmentID;
+    Kitchen kitchen;
+public:
+    Apartment(int id, int kitchenSize)
+        : apartmentID(id), kitchen(kitchenSize) {}
+
+    void showApartment() const {
+        cout << "Apartment ID: " << apartmentID << endl;
+        kitchen.showKitchen();
+    }
+};
+
+int main() {
+    Apartment a1(101, 60);
+    Apartment a2(102, 55);
+
+    a1.showApartment();
+    cout << endl;
+    a2.showApartment();
+
+    return 0;
+}
