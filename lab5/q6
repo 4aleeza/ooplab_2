@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    static int totalEmployees;
+public:
+    Employee(string n) : name(n) {
+        totalEmployees++;
+    }
+
+    string getName() const {
+        return name;
+    }
+
+    static int getTotalEmployees() {
+        return totalEmployees;
+    }
+};
+
+int Employee::totalEmployees = 0;
+
+class ClientProject {
+private:
+    string projectName;
+    Employee* team[3];
+public:
+    ClientProject(string p) : projectName(p) {
+        for(int i = 0; i < 3; i++) team[i] = nullptr;
+    }
+
+    void assignEmployee(int index, Employee* e) {
+        team[index] = e;
+    }
+
+    void showProjectTeam() const {
+        cout << "Project: " << projectName << endl;
+        for(int i = 0; i < 3; i++) {
+            if(team[i])
+                cout << "Employee: " << team[i]->getName() << endl;
+        }
+    }
+};
+
+int main() {
+    Employee e1("Ali");
+    Employee e2("Sara");
+    Employee e3("Hamza");
+
+    ClientProject p("Banking Application");
+
+    p.assignEmployee(0, &e1);
+    p.assignEmployee(1, &e2);
+    p.assignEmployee(2, &e3);
+
+    p.showProjectTeam();
+
+    cout << "Total Employees: " 
+         << Employee::getTotalEmployees() << endl;
+
+    return 0;
+}
